@@ -5,12 +5,14 @@ import { ArrowUpRight, Calendar } from 'lucide-react';
 
 interface BlogCardProps {
   title: string;
-  description: string;
+  description?: string;
+  excerpt?: string;
   link: string;
   date?: string;
 }
 
-export default function BlogCard({ title, description, link, date }: BlogCardProps) {
+export default function BlogCard({ title, description, excerpt, link, date }: BlogCardProps) {
+  const contentText = description || excerpt || '';
   return (
     <motion.a
       href={link}
@@ -49,7 +51,7 @@ export default function BlogCard({ title, description, link, date }: BlogCardPro
           className="text-sm text-[#2D2D2D]/70 leading-relaxed mb-6 line-clamp-3"
           style={{ fontFamily: 'var(--font-lato), sans-serif' }}
         >
-          {description}
+          {contentText}
         </p>
       </div>
 
