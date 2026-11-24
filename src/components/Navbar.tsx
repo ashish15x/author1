@@ -11,7 +11,6 @@ const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/books', label: 'Books' },
   { href: '/blog', label: 'Blog' },
-  { href: '/connect', label: 'Connect' },
 ];
 
 export default function Navbar() {
@@ -20,8 +19,9 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -29,86 +29,104 @@ export default function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#FDF8F4]/95 backdrop-blur-md shadow-sm'
-          : 'bg-[#FDF8F4]/80 backdrop-blur-sm'
-      }`}
-    >
-      <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="font-playfair text-xl font-bold text-[#2D2D2D] tracking-wide hover:text-[#C9A96E] transition-colors"
-          style={{ fontFamily: 'var(--font-playfair-display), serif' }}
-        >
-          Rajani Tewari
-          <span className="block text-xs font-normal text-[#C9A96E] tracking-widest uppercase" style={{ fontFamily: 'var(--font-lato), sans-serif' }}>
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+      <motion.nav
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative z-[60] mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 py-2.5 sm:px-6 ${
+          scrolled || isOpen
+            ? 'glass-nav border-blush/30 shadow-lg shadow-charcoal/5'
+            : 'border-white/40 bg-white/35 backdrop-blur-md'
+        }`}
+      >
+        <Link href="/" className="group min-w-0 py-0.5">
+          <span className="font-display block truncate text-lg font-semibold tracking-wide text-charcoal transition-colors group-hover:text-gold sm:text-xl">
+            Rajani Tewari
+          </span>
+          <span className="block text-[10px] font-semibold uppercase tracking-[0.28em] text-gold">
             Ms. Zen
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className={`text-sm tracking-wide transition-colors hover:text-[#C9A96E] relative group ${
-                  pathname === href ? 'text-[#C9A96E]' : 'text-[#2D2D2D]'
-                }`}
-                style={{ fontFamily: 'var(--font-lato), sans-serif' }}
-              >
-                {label}
-                <span
-                  className={`absolute -bottom-1 left-0 h-px bg-[#C9A96E] transition-all duration-300 ${
-                    pathname === href ? 'w-full' : 'w-0 group-hover:w-full'
+        <ul className="hidden items-center gap-1 md:flex">
+          {navLinks.map(({ href, label }) => {
+            const active = pathname === href;
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={`relative rounded-full px-4 py-2 text-sm tracking-wide transition-colors ${
+                    active ? 'text-gold' : 'text-charcoal/80 hover:text-gold'
                   }`}
-                />
-              </Link>
-            </li>
-          ))}
+                >
+                  {label}
+                  {active ? (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 -z-10 rounded-full bg-gold/10"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  ) : null}
+                </Link>
+              </li>
+            );
+          })}
+          <li className="ml-2">
+            <Link href="/connect" className="btn-gold px-5 py-2 text-sm">
+              Connect
+            </Link>
+          </li>
         </ul>
 
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-[#2D2D2D] hover:text-[#C9A96E] transition-colors"
+          className="rounded-full p-2 text-charcoal transition-colors hover:bg-gold/10 hover:text-gold md:hidden"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
-      </nav>
+      </motion.nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-[#FDF8F4] border-t border-[#E8B4B8]/30 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-cream/95 backdrop-blur-xl md:hidden"
           >
-            <ul className="flex flex-col px-6 py-4 gap-4">
-              {navLinks.map(({ href, label }) => (
-                <li key={href}>
+            <div className="flex h-full flex-col justify-center px-8">
+              {navLinks.concat({ href: '/connect', label: 'Connect' }).map(({ href, label }, i) => (
+                <motion.div
+                  key={href}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -8 }}
+                  transition={{ delay: 0.05 * i, duration: 0.35 }}
+                >
                   <Link
                     href={href}
-                    className={`block text-base transition-colors hover:text-[#C9A96E] py-1 ${
-                      pathname === href ? 'text-[#C9A96E]' : 'text-[#2D2D2D]'
+                    className={`font-display block border-b border-blush/25 py-4 text-3xl ${
+                      pathname === href ? 'text-gold' : 'text-charcoal'
                     }`}
-                    style={{ fontFamily: 'var(--font-lato), sans-serif' }}
                   >
                     {label}
                   </Link>
-                </li>
+                </motion.div>
               ))}
-            </ul>
+            </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </header>
   );

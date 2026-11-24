@@ -32,7 +32,8 @@ export default function RootLayout({
       lang="en"
       className={`${playfairDisplay.variable} ${lato.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-[#FDF8F4] text-[#2D2D2D] antialiased">
+      <body className="flex min-h-full flex-col bg-cream text-charcoal antialiased">
+        <div className="grain" aria-hidden="true" />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

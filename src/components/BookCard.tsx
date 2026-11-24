@@ -12,6 +12,7 @@ interface BookCardProps {
   amazonUrl: string;
   genre?: string;
   compact?: boolean;
+  index?: number;
 }
 
 export default function BookCard({
@@ -21,90 +22,81 @@ export default function BookCard({
   amazonUrl,
   genre = 'Fiction',
   compact = false,
+  index = 0,
 }: BookCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
+    <motion.article
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className={`group flex ${
-        compact ? 'flex-col sm:flex-row gap-6 p-6' : 'flex-col md:flex-row gap-8 lg:gap-12 p-6 md:p-8'
-      } bg-white rounded-3xl shadow-sm border border-[#E8B4B8]/25 hover:border-[#C9A96E]/50 hover:shadow-lg transition-all duration-300`}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.65, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      className={`group relative overflow-hidden rounded-[1.75rem] border border-blush/25 bg-white shadow-sm ${
+        compact
+          ? 'flex flex-col gap-6 p-5 sm:flex-row sm:p-6'
+          : 'flex flex-col gap-8 p-5 md:flex-row md:items-center md:gap-12 md:p-8 lg:p-10'
+      }`}
     >
-      {/* Book Cover */}
+      <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gold/10 blur-3xl transition-opacity group-hover:opacity-100" />
+
       <div
-        className={`relative flex-shrink-0 mx-auto md:mx-0 ${
-          compact ? 'w-44 h-64 sm:w-40 sm:h-60' : 'w-56 h-80 sm:w-64 sm:h-96'
-        } rounded-2xl overflow-hidden bg-gradient-to-br from-[#FDF8F4] to-[#F5D6D8]/20 flex items-center justify-center p-3 shadow-md group-hover:shadow-xl transition-all duration-300`}
+        className={`relative mx-auto flex-shrink-0 ${
+          compact ? 'w-40 sm:w-44' : 'w-48 sm:w-56 md:mx-0 md:w-64'
+        }`}
+        style={{ perspective: 1200 }}
       >
-        <div className="relative w-full h-full">
+        <motion.div
+          whileHover={{ rotateY: -10, rotateX: 4, y: -6 }}
+          transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+          className="book-shine relative aspect-[2/3] overflow-hidden rounded-2xl bg-gradient-to-br from-cream to-rose-light/30 shadow-xl"
+          style={{ transformStyle: 'preserve-3d' }}
+        >
           <Image
             src={imageUrl}
             alt={title}
             fill
-            className="object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-500"
-            sizes={compact ? '(max-width: 640px) 176px, 160px' : '(max-width: 768px) 224px, 256px'}
+            className="object-cover"
+            sizes={compact ? '176px' : '(max-width: 768px) 224px, 256px'}
           />
-        </div>
+        </motion.div>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col justify-between flex-1 mt-4 md:mt-0">
+      <div className="relative flex flex-1 flex-col justify-between">
         <div>
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span
-              className="text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-[#FDF8F4] text-[#C9A96E] border border-[#C9A96E]/30 rounded-full"
-              style={{ fontFamily: 'var(--font-lato), sans-serif' }}
-            >
-              {genre}
-            </span>
-          </div>
-
+          <span className="chip mb-4">{genre}</span>
           <h3
-            className={`font-bold text-[#2D2D2D] leading-snug mb-4 ${
-              compact ? 'text-xl' : 'text-2xl md:text-3xl'
+            className={`font-display font-bold leading-snug text-charcoal ${
+              compact ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl lg:text-[2.1rem]'
             }`}
-            style={{ fontFamily: 'var(--font-playfair-display), serif' }}
           >
             {title}
           </h3>
-
-          <div
-            className={`text-[#2D2D2D]/75 leading-relaxed ${
-              compact ? 'text-sm line-clamp-4 mb-6' : 'text-base md:text-lg mb-8 whitespace-pre-line'
+          <p
+            className={`mt-4 leading-relaxed text-charcoal/70 ${
+              compact ? 'mb-6 line-clamp-4 text-sm' : 'mb-8 whitespace-pre-line text-base md:text-lg'
             }`}
-            style={{ fontFamily: 'var(--font-lato), sans-serif' }}
           >
             {description}
-          </div>
+          </p>
         </div>
 
-        <div className="flex items-center gap-4 flex-wrap pt-2 border-t border-[#E8B4B8]/20">
+        <div className="flex flex-wrap items-center gap-3 border-t border-blush/20 pt-5">
           <a
             href={amazonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#C9A96E] text-white text-sm font-semibold rounded-full hover:bg-[#b8955c] transition-all shadow-md shadow-[#C9A96E]/20 hover:shadow-lg hover:shadow-[#C9A96E]/30"
-            style={{ fontFamily: 'var(--font-lato), sans-serif' }}
+            className="btn-gold px-6 py-3 text-sm"
           >
             <ShoppingBag size={16} />
             Buy on Amazon
-            <ExternalLink size={14} className="opacity-70" />
+            <ExternalLink size={14} className="opacity-80" />
           </a>
-
-          {compact && (
-            <Link
-              href="/books"
-              className="inline-flex items-center gap-1.5 px-6 py-3 border border-[#C9A96E] text-[#C9A96E] text-sm font-semibold rounded-full hover:bg-[#C9A96E]/10 transition-colors"
-              style={{ fontFamily: 'var(--font-lato), sans-serif' }}
-            >
-              View Details
+          {compact ? (
+            <Link href="/books" className="btn-outline px-6 py-3 text-sm">
+              View all books
             </Link>
-          )}
+          ) : null}
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
