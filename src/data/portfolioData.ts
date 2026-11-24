@@ -67,6 +67,36 @@ export const BOOKS: Book[] = [
       'https://www.amazon.in/Love-Mismatched-Our-story-subtitles-hilarious/dp/8199854022/ref=books_amazonstores_d_mfs_author_smart_catalog_unrecognized_5?_encoding=UTF8&pd_rd_w=ODXpo&content-id=amzn1.sym.5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_p=5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_r=525-4625172-4118258&pd_rd_wg=FbwTY&pd_rd_r=3b5b2b4a-e75d-44c6-8860-69aeb5220cee',
     genre: 'Contemporary Romance & Relationships',
   },
+  {
+    id: 'kurukshetra-has-wifi',
+    title: 'Kurukshetra Has Wi-Fi',
+    description:
+      'A modern retelling of the Bhagavad Gita set not on an ancient battlefield, but in the boardrooms, inboxes, and inner lives of today’s professionals.\n\nWhen Manjari, a capable leader, finds herself caught between ethics and expectations, burnout and ambition, she realizes her real battle is within. Enter Krishna—not as a deity with a flute, but as an executive coach who becomes a mirror to her awareness. Blending philosophy with razor-sharp corporate wit, this quietly powerful book explores timeless questions: How do you lead without losing yourself? How do you care without carrying guilt? Because the battlefield didn’t disappear—it just got better Wi-Fi.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71EsEzRCPqL._SL1500_.jpg',
+    amazonUrl:
+      'https://www.amazon.in/Kurukshetra-Has-Wi-Fi-Rajani-Tewari-ebook/dp/B0GR9NKR68/ref=books_amazonstores_d_mfs_author_smart_catalog_unrecognized_3?_encoding=UTF8&pd_rd_w=wO29c&content-id=amzn1.sym.5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_p=5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_r=525-4625172-4118258&pd_rd_wg=4cL9L&pd_rd_r=0c50cf83-2af1-4deb-a301-e89507354954',
+    genre: 'Modern Philosophy / Corporate Fiction',
+  },
+  {
+    id: 'before-it-got-complicated',
+    title: 'Before It Got Complicated',
+    description:
+      'Four inseparable childhood friends. One morning headline. And a choice that doesn’t wait for proof.\n\nWhen she is accused of fraud—her name printed, her integrity questioned, and her life rewritten by suspicion—the world hesitates. But her three friends choose to believe her without hesitation. What follows is not a courtroom drama, but an intimate journey through grief, doubt, quiet courage, and rebuilding. Wry, tender, and deeply human, this is a story of loyalty beyond logic—and of friendships that don’t shout, but stay.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71oB41XAaoL._SL1500_.jpg',
+    amazonUrl:
+      'https://www.amazon.in/Before-Got-Complicated-Rajani-Tewari-ebook/dp/B0H3DRWND1/ref=books_amazonstores_d_mfs_author_smart_catalog_unrecognized_8?_encoding=UTF8&pd_rd_w=wO29c&content-id=amzn1.sym.5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_p=5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_r=525-4625172-4118258&pd_rd_wg=4cL9L&pd_rd_r=0c50cf83-2af1-4deb-a301-e89507354954',
+    genre: 'Contemporary Fiction / Friendship',
+  },
+  {
+    id: 'ctrl-mum',
+    title: 'CTRL+ MUM: The Parent Trap You Walked Into Willingly',
+    description:
+      'A refreshing, heartfelt, and brutally honest survival memoir about modern motherhood.\n\nBalances laugh-out-loud humor with raw vulnerability as it tackles the chaos, guilt, love, and magic of parenting in today’s hyper-demanding world without judgment or pretense. Featuring charming ‘diary entries’ from the child’s perspective, this is a tender, witty, and profoundly human chronicle that every mother, father, and adult child will see themselves reflected in.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71+9xF2zIsL._SL1500_.jpg',
+    amazonUrl:
+      'https://www.amazon.in/CTRL-MUM-Parent-Walked-Willingly-ebook/dp/B0FWBRQFYD/ref=books_amazonstores_d_mfs_author_smart_catalog_unrecognized_6?_encoding=UTF8&pd_rd_w=wO29c&content-id=amzn1.sym.5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_p=5dfcefb1-f0e4-44ce-9893-11a4ee758e20&pf_rd_r=525-4625172-4118258&pd_rd_wg=4cL9L&pd_rd_r=0c50cf83-2af1-4deb-a301-e89507354954',
+    genre: 'Humor & Memoir / Modern Parenting',
+  },
 ];
 
 export const BLOGS: BlogPost[] = [

@@ -71,14 +71,14 @@ export default function BookCard({
             {title}
           </h3>
 
-          <p
+          <div
             className={`text-[#2D2D2D]/75 leading-relaxed ${
-              compact ? 'text-sm line-clamp-4 mb-6' : 'text-base md:text-lg mb-8'
+              compact ? 'text-sm line-clamp-4 mb-6' : 'text-base md:text-lg mb-8 whitespace-pre-line'
             }`}
             style={{ fontFamily: 'var(--font-lato), sans-serif' }}
           >
             {description}
-          </p>
+          </div>
         </div>
 
         <div className="flex items-center gap-4 flex-wrap pt-2 border-t border-[#E8B4B8]/20">
